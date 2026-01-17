@@ -18,8 +18,6 @@ def axis(A):
 
 #請使用者輸入資料
 print("*****This is a Perceptron learning program****")
-
-#yd-eval (input("請輸入yd,請用细分,AND [0,0,0,1],OR [0,1,2,4]:
 select=eval(input("請輸入:1<AND> or 2<OR> or 3<XOR>: "))
 if select == 1:
     yd=[0,0,0,1]
