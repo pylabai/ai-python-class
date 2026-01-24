@@ -7,13 +7,13 @@ import matplotlib.pyplot as plt
 xs=[(0.0, 0.0), (0.0, 1.0), (1.0, 8.0), (1.0, 1.0)]
 
 #列印輸入矩陣
-for i i in range(4):
+for i in range(4):
     for j in range(2):
         print()
     print(float(xs[i][j]),end='')
 
 #目標矩陣
-yd=[0.0,0.0.0.0.0.0]
+yd=[0.0,0.0,0.0,0.0]
 
 #W13,W23,W24,W24,W35,W45
 w= [0.5,0.4,0.9,1.0,-1.2,1.1]
@@ -27,7 +27,7 @@ theta=[0.8,-0.1,0.3]
 #Learning rate
 alpha=0.2
 
-#繪風新聞
+#繪圖範圍
 x=np.arange(-1,3,0.01)
 
 #循環次數
@@ -36,44 +36,48 @@ epouch =0
 #訓練次數
 training_times=0
 
-# *自行設計直線函数,Y3
+# 自行設計直線函数,Y3
 MSElist=[]
 def line1(A):
     return (-A*w[0]+theta[0])/w[1]
 
-#*******自行設計直線函數,Y4
+#自行設計直線函數,Y4
 def line2(A):
     return (-A*w[2]+theta[1])/w[3]
 
+#設計軸線函數
 def axis (A):
     return 0*A
 
-#Weight 取廠數值
+#Weight 取亂數值
 
 for i in range(6):
-    w[1]=random.random()
-print("This is a Multi-Layer Perceptron learning program****")
+    w[i]=random.random()
+    print('Weight %d=%f'%(i,w[i]))
+
+#使用者資料輸入
+print("***This is a Multi-Layer Perceptron learning program****")
 select=eval(input("請入: <AND OF ZOR> or <XOR>:"))
-if select 1:
-    yd=[0.0,0.0.0.0.1.0]
-    plt.plot([0],[0], 'ro')
-    plt.plot([0],[1], 'bo')
-    plt.plot([1],[0], 'bo') 配色區分
-    plt.plot([1],[1], 'ro')
-if select=2:
-    yd[0.0,1.0,1.0,1.0]
-    plt.plot([0],[0], 'ro')州红色医疗
-    plt.plot([0],[1], 'bo') 製の配色區分
-    plt.plot([1],[0], 'bo')
-    plt.plot([1],[1], 'bo') 譜分
+if select == 1:
+    yd=[0.0,0.0,0.0,1.0]
+    plt.plot([0],[0], 'ro') #繪製四點用紅色區分
+    plt.plot([0],[1], 'bo') #繪製四點用藍色區分
+    plt.plot([1],[0], 'bo') #繪製四點用藍色區分
+    plt.plot([1],[1], 'ro') #繪製四點用紅色區分
+if select == 2:
+    yd=[0.0,1.0,1.0,1.0]
+    plt.plot([0],[0], 'ro') #繪製四點用紅色區分
+    plt.plot([0],[1], 'bo') #繪製四點用藍色區分
+    plt.plot([1],[0], 'bo') #繪製四點用藍色區分
+    plt.plot([1],[1], 'bo') #繪製四點用藍色區分
 if select== 3:
-    yd-[0.0,1.0,1.0,0.0]
-    plt.plot([0],[0], 'no') 紅色區分 5-4
-    plt.plot([0],[1], 'bo')
-    plt.plot([1],[0], 'bo')製
-    plt.plot([1],[1], 'ro')
+    yd=[0.0,1.0,1.0,0.0]
+    plt.plot([0],[0], 'ro') #繪製四點用紅色區分
+    plt.plot([0],[1], 'bo') #繪製四點用藍色區分
+    plt.plot([1],[0], 'bo') #繪製四點用藍色區分
+    plt.plot([1],[1], 'ro') #繪製四點用紅色區分
 print("Your learning target is\n",yd)
-plt.plot(x,linel(x), 'c-')
+plt.plot(x,line1(x), 'c-')
 plt.plot(x,line2(x), 'c--')#最初的設定RY4
 plt.plot(x,axis(x), 'k-')#edraw x
 plt.plot(axis(x),x,'k-')#draw Y
@@ -81,13 +85,13 @@ plt.plot(axis(x),x,'k-')#draw Y
 
 #trainingLoop
 
+#square error
+SE=0.0
 
-
-SE=0.0 #square error
+#Mean Square error
 Accuracy=0.0
 
-MSE=1.0#Mean Square error
-
+MSE=1.0
 
 Accuracy=eval(input("What is the MSEPEX: 0.01 от 0.001 or 0.0001: "))
 while (MSE > Accuracy and epouch <100000): #step 4, Iteration
