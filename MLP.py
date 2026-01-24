@@ -50,7 +50,6 @@ def axis (A):
     return 0*A
 
 #Weight 取亂數值
-
 for i in range(6):
     w[i]=random.random()
     print('Weight %d=%f'%(i,w[i]))
@@ -100,51 +99,71 @@ while (MSE > Accuracy and epouch <100000): #step 4, Iteration
     print("epouch",epouch)
     SE=0.0
     for i in range(4):
+        
         #step 2a
-        #****feed forward #colculate 13 and 14
-
+        #****feed forward 
+        #colculate y3 and y4
         ya[0]=1.0/(1.0+math.exp(-(xs[i][0]*w[0]+xs[i][1]*w[1]-theta[0]))) 
         ya[1]=1.0/(1.0+math.exp(-(xs[i][0]*w[2]+xs[i][1]*w[3]-theta[1])))
 
         #step 2b 
         #colculate YS 
         ya[2]=1.0/(1.0+math.exp(-(ya[0]*w[4]+ya[1]*w[5]-theta[2])))
-        #vs 
         print('Y3NF, Y4 %f, YS=%f '%(ya[0],ya[1],ya[2]))
-        #step 30
+        
+        #step 3a
         e=yd[i]-ya[2]
         #calculate real error 
+        #calculate gradient error of y3
         ge5=ya [2] (1.0-ya[2])*e
-        #calculate gradient error of 13
-        #change weights (Learning)
+        #******change weights (Learning)
         #******backward propagation
+        #change w35
         w[4]= w[4]+alpha*ya[0]*ge5 
+        #change w45
         w[5]= w[5]+alpha*ya[1]*ge5
-        theta[2]= theta[2]+ (-alpha)*ge5 #change thetas#change 
-        #35 
-        #change 45
+        #change theta3
+        theta[2]= theta[2]+ (-alpha)*ge5
+        
         #step 3b
         #...... error backward calculation this is most important p
-        ge3=ya[0]*(1.0-ya[0])*ge5*w[4]#gradient error of VI with error-5]
+        #gradient error of VI with error-back
+        ge3=ya[0]*(1.0-ya[0])*ge5*w[4]
 
-
-        ge4=ya[1]*(1.0-ya[1])*ge5*w[5]#gradient error of 12 with error-
+        #gradient error of 12 with error-back
+        ge4=ya[1]*(1.0-ya[1])*ge5*w[5]
+        
         #change weights (Learning)
-        w[0]= w[0]+alpha*xs[i][0]*ge3#change 13
+        #change 13
+        w[0]= w[0]+alpha*xs[i][0]*ge3
+        
+        #change 23
         w[1]= w[1]+alpha*xs[i][1]*ge3
-        w[2]= w[2]+alpha*xs[i][0]*ge4#change 14
+        
+        #change 14
+        w[2]= w[2]+alpha*xs[i][0]*ge4
+
+        #change 24
         w[3]= w[3]+alpha*xs[i][1]*ge4
-        theta[0]= theta[0]+ (-alpha)*ge3 #change thetas#change 13
-        theta[1]= theta[1]+ (-alpha)*ge4 #change thetas#change 14
+        
+        #change theta1
+        theta[0]= theta[0]+ (-alpha)*ge3
+        
+        #change theta2
+        theta[1]= theta[1]+ (-alpha)*ge4
         SE=SE+e*e
-    MSE=SE/4.0  #mean square error
+    #mean square error
+    MSE=SE/4.0  
     MSElist.append(MSE)
+print("劃出調整後的紅色直線，黃色為原始設定線")
+#畫調整後直線y3,y4
 plt.plot(x,line1(x), 'r-')
-plt.plot(x,line2(x), 'r--')#final Y4
+plt.plot(x,line2(x), 'r--')
+#XY軸座標說明
 plt.xlabel('---X1---')
 plt.ylabel('---X2---')
 plt.show()
-
+#顯示誤差變化圖
 plt.plot((range(epouch)),MSElist)
 plt.xlabel('---epouch---')
 plt.ylabel('---MSE---')
