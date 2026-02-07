@@ -8,14 +8,14 @@ import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 
-# 初始化直方圖統計陣列 [cite: 74, 76, 77, 82]
+# 初始化直方圖統計陣列
 Histogram = []
 Histogram_new = []
 for i in range(256):
     Histogram.append(0)
     Histogram_new.append(0)
 
-# 設定 x 軸範圍 [cite: 84]
+# 設定 x 軸範圍
 x = np.arange(0, 256, 1)
 
 # 讀取影像 [cite: 86]
@@ -24,22 +24,22 @@ image = cv2.imread(picName, -1)
 cv2.imshow('original image', image)
 cv2.waitKey(0)
 
-# 獲取影像尺寸 [cite: 89, 90]
+# 獲取影像尺寸
 high = image.shape[0]
 width = image.shape[1]
 
-# 讀取灰階影像進行處理 [cite: 91, 106]
+# 讀取灰階影像進行處理
 greyimage = cv2.imread(picName, 0)
 cv2.imshow('grey image', greyimage)
 cv2.waitKey(0)
 
-# 統計原始直方圖 [cite: 111, 112, 114, 116]
+# 統計原始直方圖
 for i in range(high):
     for j in range(width):
         grey = greyimage[i, j]
         Histogram[grey] += 1
 
-# 找出最小及最大像素值 [cite: 118, 119, 127, 129, 135]
+# 找出最小及最大像素值
 first = 0
 min_pixel = 0
 max_pixel = 255
@@ -50,17 +50,17 @@ for i in range(256):
             first = 1
         max_pixel = i
 
-print("minimum pixel=", min_pixel) [cite: 136]
-print("maximum pixel=", max_pixel) [cite: 137]
+print("minimum pixel=", min_pixel)
+print("maximum pixel=", max_pixel)
 
-# 顯示原始直方圖 [cite: 139, 140, 143]
+# 顯示原始直方圖
 plt.bar(x, Histogram, color='red')
 plt.title("Before")
 plt.xlabel('pixel value')
 plt.ylabel('Frequency')
 plt.show()
 
-# 直方圖拉伸處理 [cite: 167, 168, 169, 174, 176]
+# 直方圖拉伸處理
 for i in range(high):
     for j in range(width):
         # 公式: Pout = (Pin - min) * (255 / (max - min))
@@ -69,7 +69,7 @@ for i in range(high):
         new_grey = greyimage[i, j]
         Histogram_new[new_grey] += 1
 
-# 顯示調整後的直方圖與影像 [cite: 177, 178, 181, 183]
+# 顯示調整後的直方圖與影像
 plt.bar(x, Histogram_new, color='blue')
 plt.title("After")
 plt.xlabel('pixel value')
@@ -78,5 +78,5 @@ plt.show()
 
 cv2.imshow('Contrast image', greyimage)
 cv2.waitKey(0)
-print("press enter to close windows") [cite: 186]
-cv2.destroyAllWindows() [cite: 188]
+print("press enter to close windows")
+cv2.destroyAllWindows()
